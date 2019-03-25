@@ -22,6 +22,11 @@ type TTCPServer struct {
 	OnRead func(*conn.TData) // 读取回调(buf, 包长, sessionid)
 }
 
+func init() {
+	//设置答应日志每一行前的标志信息，这里设置了日期，打印时间，当前go文件的文件名
+	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
+}
+
 // NewTCPServer 新建
 func NewTCPServer() *TTCPServer {
 	return &TTCPServer{}
@@ -89,6 +94,7 @@ func (self *TTCPServer) run() {
 
 		pConnection := conn.CreateConnection(tcpConn)
 		strRemoteAddr := tcpConn.RemoteAddr()
+		log.Println("监听到客户端的", strRemoteAddr, "连接")
 		go func() {
 			defer func() {
 				log.Println(strRemoteAddr, "断开连接")

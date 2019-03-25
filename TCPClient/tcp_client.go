@@ -9,6 +9,11 @@ import (
 	conn "github.com/266game/goserver/Connection"
 )
 
+func init() {
+	//设置答应日志每一行前的标志信息，这里设置了日期，打印时间，当前go文件的文件名
+	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
+}
+
 // TTCPClient TCP连接客户端
 type TTCPClient struct {
 	strAddress    string // 需要连接的服务器地址
@@ -82,7 +87,7 @@ func (self *TTCPClient) run() {
 
 	if self.OnConnect != nil {
 		// 连接回调
-		self.OnConnect(self.pConnection)
+		go self.OnConnect(self.pConnection)
 	}
 
 	// 在这里进行收包处理
@@ -110,6 +115,7 @@ func (self *TTCPClient) run() {
 			log.Println("找不到处理网络的回调函数")
 		}
 	}()
+
 	log.Println(strRemoteAddr, "断开连接")
 	// cleanup
 	self.pConnection.Close()

@@ -22,7 +22,7 @@ func (self *TData) GetBuffer() []byte {
 }
 
 // GetIndex 获取自增索引
-func (self *TData) GetIndex() int {
+func (self *TData) GetIndex() uint32 {
 	return self.pConnection.nIndex
 }
 

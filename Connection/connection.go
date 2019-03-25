@@ -4,15 +4,10 @@ import "net"
 
 // TConnection 上下文会话
 type TConnection struct {
-	nIndex   int
+	nIndex   uint32
 	pTCPConn *net.TCPConn
 	// 	buffer   []byte //
 	// 	nLen     int    // 包长
-}
-
-// GetAutoIncreate 获取自增ID
-func (self *TConnection) GetAutoIncreate() int {
-	return self.nIndex
 }
 
 // GetTCPConn 得到TCP连接指针
